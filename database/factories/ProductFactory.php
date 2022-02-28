@@ -18,13 +18,10 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(Product::class, function (Faker $faker) {
-
-    $discounts = [
-      0 , 100 , 400 , 1000 , 1200
-    ];
+    $price = $faker->numberBetween(1000 , 100000);
     return [
         'name' => $faker->unique()->name,
-        'price' => $faker->numberBetween(1000 , 100000),
-        'discount_price' => $faker->randomElement($discounts),
+        'price' => $price ,
+        'discount_price' => $faker->boolean ? $faker->numberBetween(10 , $price / 10) : 0,
     ];
 });
