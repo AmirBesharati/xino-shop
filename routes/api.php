@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 
 
 Route::get('/test' , function (){
@@ -47,4 +45,8 @@ Route::post('/do-pay' , [FactorController::class , 'make_factor']);
 
 Route::prefix('auth')->group(function (){
     Route::post('/login' , [AuthController::class , 'login']);
+});
+
+Route::middleware('auth:api')->prefix('user')->group(function (){
+    Route::get('/' , [\App\Http\Controllers\UserController::class , 'user']);
 });

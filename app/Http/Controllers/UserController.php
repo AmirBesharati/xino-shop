@@ -11,6 +11,9 @@ use phpseclib\Crypt\Hash;
 
 class UserController extends Controller
 {
-
+    public function user(Request $request)
+    {
+        return $request->user();
+    }
 
 }
