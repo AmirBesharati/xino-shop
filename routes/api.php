@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/products' , [ProductController::class , 'products']);
-Route::get('/product-detail' , [ProductController::class , 'products']);
+Route::get('/product-detail' , [ProductController::class , 'product_detail']);
 
 
 Route::post('/cart-items' , [CartController::class , 'cart_items']);
