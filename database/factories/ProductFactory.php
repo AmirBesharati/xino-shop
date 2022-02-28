@@ -3,7 +3,6 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Product;
-use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -24,7 +23,7 @@ $factory->define(Product::class, function (Faker $faker) {
       0 , 100 , 400 , 1000 , 1200
     ];
     return [
-        'name' => $faker->name,
+        'name' => $faker->unique()->name,
         'price' => $faker->numberBetween(1000 , 100000),
         'discount_price' => $faker->randomElement($discounts),
     ];
