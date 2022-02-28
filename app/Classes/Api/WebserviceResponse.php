@@ -42,10 +42,10 @@ class WebserviceResponse
     {
         switch ($code) {
             case self::_RESULT_OK:
-                return 'انجام شد.';
+                return '';
 
             case self::_NOT_FOUND:
-                return 'یافت نشد.';
+                return '';
         }
         return '';
     }
