@@ -23,5 +23,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'name' => $faker->unique()->name,
         'price' => $price ,
         'discount_price' => $faker->boolean ? $faker->numberBetween(10 , $price / 10) : 0,
+        'quantity' => $faker->numberBetween(0 , 100),
     ];
 });
