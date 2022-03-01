@@ -65,7 +65,7 @@ class FactorManager
             $factor_content->product_id = $cart->product_id;
             $factor_content->tmp_product_name = $cart->product->name;
             $factor_content->product_price = $cart->product->price;
-            $factor_content->product_discount_price = $cart->product->price;
+            $factor_content->product_discount_price = $cart->product->discount_price;
             $factor_contents[] = $factor_content;
         }
         $factor->factor_contents()->saveMany($factor_contents);

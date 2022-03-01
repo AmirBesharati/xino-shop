@@ -25,14 +25,21 @@ class Factor extends Model
     const _STATUS_FACTOR_PAY_FAILED_LABEL = 'factor pay failed';
 
 
+    const _FACTOR_STATUS_LABEL_ARRAY = [
+        self::_STATUS_FACTOR_CREATED_READY_TO_PAY =>  self::_STATUS_FACTOR_CREATED_READY_TO_PAY_LABEL,
+        self::_STATUS_FACTOR_PAY_COMPLETED_PENDING_FOR_ADMIN_APPROVE =>  self::_STATUS_FACTOR_PAY_COMPLETED_PENDING_FOR_ADMIN_APPROVE_LABEL,
+        self::_STATUS_FACTOR_PAY_FAILED =>  self::_STATUS_FACTOR_PAY_FAILED_LABEL,
+    ];
+
+
     protected $hidden = ['status' , 'client_id' , 'user_id' , 'updated_at' , 'id'];
 
+    protected $appends = ['pay_price' , 'status_label'];
 
     public function factor_contents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(FactorContent::class , 'factor_id' , 'id');
     }
-
 
     public function calculate_prices()
     {
@@ -48,5 +55,15 @@ class Factor extends Model
         $this->full_price = $full_price;
         $this->full_discount_price = $full_discount_price;
         $this->save();
+    }
+
+    public function getStatusLabelAttribute(): string
+    {
+        return self::_FACTOR_STATUS_LABEL_ARRAY[$this->status];
+    }
+
+    public function getPayPriceAttribute()
+    {
+        return $this->full_price - $this->full_discount_price;
     }
 }
