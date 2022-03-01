@@ -17,9 +17,9 @@ class FactorManager
         $cart = Cart::getCartByClient($client);
         $factor_res = self::makeFactorByCart($cart , null , $client->id);
         if($factor_res->status == 'success'){
-            return call_user_func($success_callback , $factor_res->message);
+            return call_user_func($success_callback , $factor_res->messages ,  $factor_res->body);
         }
-        return call_user_func($error_callback , $factor_res->message);
+        return call_user_func($error_callback , $factor_res->messages);
     }
 
     public static function makeFactorByUser(User $user , $success_callback , $error_callback)
@@ -27,35 +27,37 @@ class FactorManager
         $cart = Cart::getCartByUser($user);
         $factor_res = self::makeFactorByCart($cart , $user->id , null);
         if($factor_res->status == 'error'){
-            return call_user_func($success_callback , $factor_res->message);
+            return call_user_func($success_callback , $factor_res->messages , $factor_res->body);
         }
-        return call_user_func($error_callback , $factor_res->message);
+        return call_user_func($error_callback , $factor_res->messages);
     }
 
     private static function makeFactorByCart($carts , $user_id , $client_id): \stdClass
     {
 
         $factor_res = new \stdClass();
+        $factor_res->messages = [];
+        $factor_res->body = '';
+
         //return error if cart is empty
         if(count($carts) == 0){
             $factor_res->status = 'error';
-            $factor_res->messages = 'cart is empty.';
+            $factor_res->messages[] = 'cart is empty';
             return  $factor_res;
         }
 
         //make factor
         $factor = new Factor();
         $factor->status = Factor::_STATUS_FACTOR_CREATED_READY_TO_PAY;
-        if($user_id == null){
-            $factor->client_id = $client_id;
-        }else{
-            $factor->user_id = $user_id;
-        }
+        $factor->client_id = $client_id == null ? -1 : $client_id;
+        $factor->user_id = $user_id== null ? -1 : $user_id;
+        $factor->save();
 
         $factor_contents = [];
         /** @var Cart $cart */
         foreach ($carts as $cart){
             if($cart->product->invalid()){
+                $factor_res->messages[] = 'product '. $cart->product->name . ' is currently unavailable, its removed from your cart.';
                 continue;
             }
             $factor_content = new FactorContent();
@@ -69,6 +71,8 @@ class FactorManager
         $factor->factor_contents()->saveMany($factor_contents);
         $factor->calculate_prices();
 
+        $factor_res->status = 'success';
+        $factor_res->body = $factor;
         return $factor_res;
     }
 }
