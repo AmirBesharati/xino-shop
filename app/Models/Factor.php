@@ -54,8 +54,8 @@ class Factor extends Model
 
         /** @var FactorContent $factor_content */
         foreach ($this->factor_contents as $factor_content){
-            $full_price += $factor_content->product_price;
-            $full_discount_price += $factor_content->product_discount_price;
+            $full_price += ($factor_content->product_price * $factor_content->count);
+            $full_discount_price += ($factor_content->product_discount_price * $factor_content->count);
         }
 
         $this->full_price = $full_price;
