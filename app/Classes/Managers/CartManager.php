@@ -5,6 +5,8 @@ namespace App\Classes\Managers;
 
 
 use App\Models\Cart;
+use App\Models\Client;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class CartManager
@@ -50,4 +52,6 @@ class CartManager
             return false;
         }
     }
+
+
 }

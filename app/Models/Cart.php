@@ -31,4 +31,19 @@ class Cart extends Model
             ->where('client_id' , $client_id)
             ->first();
     }
+
+
+    /** @var User $user */
+    public static function getCartByUser(User $user)
+    {
+        return self::query()->where('user_id' , $user->id)->get();
+    }
+
+    /** @var Client $client */
+    public static function getCartByClient(Client $client)
+    {
+        return self::query()->where('client_id' , $client->id)->get();
+    }
+
+
 }

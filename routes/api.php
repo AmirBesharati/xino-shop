@@ -33,8 +33,8 @@ Route::get('/test' , function (Request $request){
 });
 
 
-Route::get('/products' , [ProductController::class , 'products']);
-Route::get('/product-detail' , [ProductController::class , 'product_detail']);
+Route::post('/products' , [ProductController::class , 'products']);
+Route::post('/product-detail' , [ProductController::class , 'product_detail']);
 
 
 Route::post('/cart-items' , [CartController::class , 'cart_items']);
@@ -50,5 +50,5 @@ Route::prefix('auth')->group(function (){
 });
 
 Route::middleware('auth:api')->prefix('user')->group(function (){
-    Route::get('/' , [\App\Http\Controllers\UserController::class , 'user']);
+    Route::post('/' , [\App\Http\Controllers\UserController::class , 'user']);
 });

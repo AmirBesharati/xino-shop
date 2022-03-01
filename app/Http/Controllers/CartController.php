@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Classes\Api\WebserviceResponse;
 use App\Classes\Managers\CartManager;
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function add_to_cart(Request $request)
+    public function add_to_cart(Request $request): \Illuminate\Http\JsonResponse
     {
         //check user logged in or not
         $user = $request->user('api');
@@ -57,4 +58,23 @@ class CartController extends Controller
         }
         return  response()->json($response);
     }
+
+
+    public function cart_items(Request $request)
+    {
+        $user = $request->user('api');
+        $client = $request->client;
+
+
+        if($user != null){
+            $cart_items = Cart::getCartByUser($user);
+        }else{
+            $cart_items = Cart::getCartByClient($client);
+        }
+
+        $response = new WebserviceResponse(WebserviceResponse::_RESULT_OK);
+        $response->content['cart_items'] = $cart_items;
+        return response()->json($response);
+    }
+
 }
