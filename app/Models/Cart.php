@@ -6,6 +6,10 @@ use Carbon\Carbon;
 use http\Env\Request;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed product_id
+ * @property mixed product
+ */
 class Cart extends Model
 {
     public $timestamps = false;

@@ -16,14 +16,14 @@ class FactorController extends Controller
         if($user == null){
             FactorManager::makeFactorByClient($client , function ($success_message){
                 dd($success_message);
-            } , function (){
-
+            } , function ($error_message){
+                dd($error_message);
             });
         }else{
-            FactorManager::makeFactorByUser($user , function ($error_message){
+            FactorManager::makeFactorByUser($user , function ($success_message){
+                dd($success_message);
+            } , function ($error_message){
                 dd($error_message);
-            } , function (){
-
             });
         }
 
