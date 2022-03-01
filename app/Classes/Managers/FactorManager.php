@@ -58,6 +58,8 @@ class FactorManager
 
 
         $factor_contents = [];
+
+        //make factor content for valid products in user/client cart
         /** @var Cart $cart */
         foreach ($carts as $cart){
             if($cart->product->invalid()){
@@ -70,11 +72,17 @@ class FactorManager
             $factor_content->tmp_product_name = $cart->product->name;
             $factor_content->product_price = $cart->product->price;
             $factor_content->product_discount_price = $cart->product->discount_price;
+            $factor_content->count = $cart->count;
             $factor_contents[] = $factor_content;
         }
+
+        //save factor contents
         $factor->factor_contents()->saveMany($factor_contents);
+
+        //calculate save and fetch price of factor
         $factor->calculate_prices();
 
+        //eager load factor contents
         $factor->load(['factor_contents']);
 
         $factor_res->status = 'success';

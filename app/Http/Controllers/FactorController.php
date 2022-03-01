@@ -7,6 +7,7 @@ use App\Classes\Managers\CartManager;
 use App\Classes\Managers\FactorManager;
 use App\Classes\QueryBuilders\FactorQueryBuilder;
 use App\Models\Factor;
+use App\Models\FactorContent;
 use Illuminate\Http\Request;
 
 class FactorController extends Controller
@@ -108,10 +109,15 @@ class FactorController extends Controller
         $factor->status = Factor::_STATUS_FACTOR_PAY_COMPLETED_PENDING_FOR_ADMIN_APPROVE;
         $factor->save();
 
+        //reduce product quantity after pay for each factor content
+        /** @var FactorContent $factor_content */
+        foreach ($factor->factor_contents as $factor_content){
+            $factor_content->product->quantity -= $factor_content->count;
+            $factor_content->product->save();
+        }
+
         $response = new WebserviceResponse(WebserviceResponse::_RESULT_OK);
         $response->content['factor'] = $factor;
         return response()->json($request);
-
-
     }
 }

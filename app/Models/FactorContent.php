@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed tmp_product_name
  * @property mixed product_price
  * @property mixed product_discount_price
+ * @property mixed product
+ * @property mixed count
  */
 class FactorContent extends Model
 {

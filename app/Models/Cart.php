@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property mixed product_id
  * @property mixed product
+ * @property mixed count
  */
 class Cart extends Model
 {
