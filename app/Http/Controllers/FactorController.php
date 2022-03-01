@@ -109,6 +109,7 @@ class FactorController extends Controller
         $factor->status = Factor::_STATUS_FACTOR_PAY_COMPLETED_PENDING_FOR_ADMIN_APPROVE;
         $factor->save();
 
+
         //reduce product quantity after pay for each factor content
         /** @var FactorContent $factor_content */
         foreach ($factor->factor_contents as $factor_content){
