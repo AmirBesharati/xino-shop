@@ -30,7 +30,6 @@ class FactorController extends Controller
                 return new WebserviceResponse(WebserviceResponse::_RESULT_ERROR, $error_messages);
             });
         } else {
-            $response = new \stdClass();
             FactorManager::makeFactorByUser($user, function ($success_messages, $factor) use ($user) {
 
                 CartManager::emptyUserCart($user);
@@ -72,5 +71,36 @@ class FactorController extends Controller
         $response = new WebserviceResponse(WebserviceResponse::_RESULT_OK);
         $response->content['factors'] = $factors;
         return response()->json($response);
+    }
+
+    public function pay(Request $request)
+    {
+        $client = $request->client;
+        $user = $request->user('api');
+
+        $factor_follow_up_code = $request->get('code');
+
+        $factor_query_builder = new FactorQueryBuilder();
+        $factor_query_builder->setStatus(Factor::_STATUS_FACTOR_CREATED_READY_TO_PAY);
+        $factor_query_builder->setFollowUpCode($factor_follow_up_code);
+        if($user != null){
+            $factor_query_builder->setUserId($user->id);
+        }else{
+            $factor_query_builder->setClientId($client->id);
+        }
+        /** @var Factor $factor */
+        $factor = $factor_query_builder->get_query()->first();
+
+        if($factor == null){
+            $response = new WebserviceResponse(WebserviceResponse::_RESULT_ERROR , WebserviceResponse::_ERROR_FACTOR_NOT_EXIST);
+            return response()->json($response);
+        }
+
+        if(!$factor->canPay()){
+
+        }
+
+        //do transaction
+
     }
 }

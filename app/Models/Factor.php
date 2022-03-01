@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use function Symfony\Component\Translation\t;
 
 /**
  * @property mixed client_id
@@ -12,6 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed full_discount_price
  * @property mixed factor_contents
  * @property int|mixed status
+ * @property mixed follow_up_code
+ * @property mixed created_at
+ * @property mixed is_deleted
  */
 class Factor extends Model
 {
@@ -68,4 +72,13 @@ class Factor extends Model
     {
         return $this->full_price - $this->full_discount_price;
     }
+
+    public function canPay(): bool
+    {
+        if($this->is_deleted == 1) return false;
+        if($this->status != self::_STATUS_FACTOR_CREATED_READY_TO_PAY) return false;
+        if(count($this->factor_contents) == 0) return false;
+        return true;
+    }
+
 }

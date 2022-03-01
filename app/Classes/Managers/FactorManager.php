@@ -4,6 +4,7 @@
 namespace App\Classes\Managers;
 
 
+use App\Classes\Helpers\HashHelper;
 use App\Models\Cart;
 use App\Models\Client;
 use App\Models\Factor;
@@ -53,6 +54,9 @@ class FactorManager
         $factor->user_id = $user_id== null ? -1 : $user_id;
         $factor->save();
 
+        $factor->follow_up_code = self::makeUniqueFollowUpCode([$factor->created_at , $factor->user_id , $factor->client_id  , $factor->id]);
+
+
         $factor_contents = [];
         /** @var Cart $cart */
         foreach ($carts as $cart){
@@ -76,5 +80,10 @@ class FactorManager
         $factor_res->status = 'success';
         $factor_res->body = $factor;
         return $factor_res;
+    }
+
+    private static function makeUniqueFollowUpCode($data)
+    {
+        return HashHelper::encryptArrayString($data);
     }
 }

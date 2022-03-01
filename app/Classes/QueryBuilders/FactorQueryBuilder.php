@@ -25,6 +25,24 @@ class FactorQueryBuilder extends BaseFilter
     private $client_id = null;
     private $user_id = null;
     private $load_factor_contents = false;
+    private $follow_up_code = null;
+
+    /**
+     * @return null
+     */
+    public function getFollowUpCode()
+    {
+        return $this->follow_up_code;
+    }
+
+    /**
+     * @param null $follow_up_code
+     */
+    public function setFollowUpCode($follow_up_code): void
+    {
+        $this->follow_up_code = $follow_up_code;
+    }
+
 
     /**
      * @return null
@@ -165,6 +183,10 @@ class FactorQueryBuilder extends BaseFilter
 
         if($this->getUserId() != null){
             $query->where('user_id' , $this->getUserId());
+        }
+
+        if($this->getFollowUpCode() != null){
+            $query->where('follow_up_code' , $this->getFollowUpCode());
         }
 
         $query->where('is_deleted' , 0);
