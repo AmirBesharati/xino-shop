@@ -60,7 +60,7 @@ class CartController extends Controller
     }
 
 
-    public function cart_items(Request $request)
+    public function cart_items(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user('api');
         $client = $request->client;
