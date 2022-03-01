@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use http\Env\Request;
 use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
     public $timestamps = false;
 
-
+    protected $hidden = ['id' , 'product_id' , 'user_id' , 'client_id'];
     /**
      * @description return cart with same user_id and product_id
      */
@@ -36,14 +37,27 @@ class Cart extends Model
     /** @var User $user */
     public static function getCartByUser(User $user)
     {
-        return self::query()->where('user_id' , $user->id)->get();
+        return self::query()
+            ->where('user_id' , $user->id)
+            ->with('product')
+            ->get();
     }
 
     /** @var Client $client */
     public static function getCartByClient(Client $client)
     {
-        return self::query()->where('client_id' , $client->id)->get();
+        return self::query()
+            ->where('client_id' , $client->id)
+            ->with('product')
+            ->get();
     }
+
+
+    public function product(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Product::class , 'id' , 'product_id');
+    }
+
 
 
 }

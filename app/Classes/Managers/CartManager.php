@@ -22,7 +22,7 @@ class CartManager
             //update product count of cart if cart exists
             $cart->product_id = $product_id;
             $cart->user_id = $user->id;
-            $cart->count = $count;
+            $cart->count = $count == null ? 1 : $count;
             $cart->save();
             return true;
         }catch (\Exception $exception){
@@ -44,7 +44,7 @@ class CartManager
             //update product count of cart if cart exists
             $cart->product_id = $product_id;
             $cart->client_id = $client->id;
-            $cart->count = $count;
+            $cart->count = $count == null ? 1 : $count ;
             $cart->save();
             return true;
         }catch (\Exception $exception){
