@@ -119,6 +119,6 @@ class FactorController extends Controller
 
         $response = new WebserviceResponse(WebserviceResponse::_RESULT_OK);
         $response->content['factor'] = $factor;
-        return response()->json($request);
+        return response()->json($response);
     }
 }

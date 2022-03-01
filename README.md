@@ -50,23 +50,23 @@ General Description
 These Classes were write by my self many years ago and i didnt change it alot but the responsibity of these classes are making queries and make query writing easy-peasy for php programmers its very important to me that u read these class and how they work 
 
 #HTTP CONTROLLERS
--AuthController : Auth Methods such as login/register Are in this class.
--CartController : All Cart methods are in this class.
--FactorController : All Factor methods are in this class.
--ProductController : All Product methods are in this class.
--UserController : All User methods are in this class.
+- AuthController : Auth Methods such as login/register Are in this class.
+- CartController : All Cart methods are in this class.
+- FactorController : All Factor methods are in this class.
+- ProductController : All Product methods are in this class.
+- UserController : All User methods are in this class.
 
 
 #Middleware (middlewares that I wrote)
--ClientTokenMiddleware : check client token and keep away clients without client-token
+- ClientTokenMiddleware : check client token and keep away clients without client-token
 
 #Models
--Cart : Basket or Cart of user params are mentioned as @params in the model 
--Client : if user not authenticated we know it as client and we store clients have their cart and etc in out database 
--Factor : Factor of user with price and client_id or user_id. other params mentioned as @params in the model
--FactorContent : its a Model to save products that the user want to buy or bought them (we replicate product in this model because the product can change after a while or disappear)
--Product : Product Model Nothing More
--User : User model Nothing More
+- Cart : Basket or Cart of user params are mentioned as @params in the model 
+- Client : if user not authenticated we know it as client and we store clients have their cart and etc in out database 
+- Factor : Factor of user with price and client_id or user_id. other params mentioned as @params in the model
+- FactorContent : its a Model to save products that the user want to buy or bought them (we replicate product in this model because the product can change after a while or disappear)
+- Product : Product Model Nothing More
+-   User : User model Nothing More
 
 
 

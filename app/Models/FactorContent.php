@@ -17,4 +17,9 @@ class FactorContent extends Model
 {
     protected $hidden = ['id' , 'factor_id' , 'product_id' , 'created_at' , 'updated_at'];
 
+
+    public function product()
+    {
+        return $this->hasOne(Product::class , 'id' , 'product_id');
     }
+}
