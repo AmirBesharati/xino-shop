@@ -34,6 +34,8 @@ class Factor extends Model
 
     protected $hidden = ['status' , 'client_id' , 'user_id' , 'updated_at' , 'id'];
 
+    protected $sh = ['created_at' , 'updated_at'];
+
     protected $appends = ['pay_price' , 'status_label'];
 
     public function factor_contents(): \Illuminate\Database\Eloquent\Relations\HasMany
