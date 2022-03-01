@@ -26,6 +26,8 @@
 #postman 
 - /Xino.postman_collection.json
 
+#sql 
+- /xino.sql
 
 # روند ها 
 - لیست محصولات گرفته میشود از api و محصول انتخاب میگردد 
