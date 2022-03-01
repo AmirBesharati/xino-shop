@@ -34,7 +34,9 @@ class Cart extends Model
     }
 
 
-    /** @var User $user */
+    /**
+     * @var User $user
+     */
     public static function getCartByUser(User $user)
     {
         return self::query()
@@ -43,7 +45,9 @@ class Cart extends Model
             ->get();
     }
 
-    /** @var Client $client */
+    /**
+     * @var Client $client
+     */
     public static function getCartByClient(Client $client)
     {
         return self::query()
