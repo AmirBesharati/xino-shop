@@ -37,6 +37,12 @@ class CartController extends Controller
             return response()->json($response);
         }
 
+        //check product quantity
+        if($product->invalidQuantity($count)){
+            $response = new WebserviceResponse(WebserviceResponse::_RESULT_ERROR , WebserviceResponse::_ERROR_PRODUCT_QUANTITY);
+            return response()->json($response);
+        }
+
 
         //get client from request (client has been set in middleware to have access all around project)
         $client = $request->client;
@@ -54,7 +60,7 @@ class CartController extends Controller
         if(!$is_added_to_cart){
             $response = new WebserviceResponse(WebserviceResponse::_RESULT_ERROR , WebserviceResponse::_ERROR_CART_ADD_ISSUE);
         }else{
-            $response = new WebserviceResponse(WebserviceResponse::_RESULT_OK);
+            $response = new WebserviceResponse(WebserviceResponse::_RESULT_OK , WebserviceResponse::_SUCCESS_ADDED_TO_CART_SUCCESSFULLY);
         }
         return  response()->json($response);
     }

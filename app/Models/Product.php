@@ -14,6 +14,8 @@ class Product extends Model
     const _STATUS_ACTIVE = 1;
     const _STATUS_DISABLE = 2;
 
+    protected $hidden = ['created_at' , 'is_deleted'];
+
     /**
      * @description : find and return product by global code
      */
@@ -44,6 +46,12 @@ class Product extends Model
         if($this->quantity == 0) return 'product quantity is finished.';
 //        if($this->status == 0) return 'product not exists.';
         return '';
+    }
+
+    public function invalidQuantity($count)
+    {
+        if($count > $this->quantity) return true;
+        return  false;
     }
 
 }
