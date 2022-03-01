@@ -5,6 +5,9 @@ namespace App\Models;
 use App\Classes\Managers\RedisManager;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed id
+ */
 class Client extends Model
 {
     protected $fillable = ['token'];

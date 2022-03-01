@@ -53,5 +53,15 @@ class CartManager
         }
     }
 
+    public static function emptyUserCart(User $user)
+    {
+        Cart::query()->where('user_id' , $user->id)->delete();
+    }
+
+    public static function emptyClientCart(Client $client)
+    {
+        Cart::query()->where('client_id' , $client->id)->delete();
+    }
+
 
 }
