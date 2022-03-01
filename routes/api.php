@@ -42,7 +42,8 @@ Route::post('/add-to-cart' , [CartController::class , 'add_to_cart']);
 
 
 Route::post('/make-factor' , [FactorController::class , 'make_factor']);
-Route::post('/do-pay' , [FactorController::class , 'make_factor']);
+Route::post('/pay' , [FactorController::class , 'pay_factor']);
+Route::post('/factors' , [FactorController::class , 'factors']);
 
 
 Route::prefix('auth')->group(function (){
