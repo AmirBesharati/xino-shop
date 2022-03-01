@@ -1,78 +1,76 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+<div dir="rtl" style="text-align:right;">
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+#سلام بر دوست عزیزی که داری اینو میخونی امیدوارم حالت خوب باشه
+#این یه پروژه با توجه به نیاز مندی های گفته شده میباشد اول خواستم انگلیسی بنویسم گفتم وللش تا وقتی فارسی هست چرا انگلیسی :) 
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#نکات 
+- از اونجایی که تایم زیادی نبود migration هارو کنسل کردم کلا ازش استفاده ای نشده پس دمت گرم اگر دیتا بیس رو ایمپورت کنی چون چیزی برای میگریت وجود نداری 
+- همه ریکوست های نیاز به client-token دارن که فرانت باید ساخته بشه و middlware اگر ساخته تشده باشه یهدونه میسازه و برمیگردونه همونو توی header بزارید با کلید client-token 
+- من نمیدونستم در آخر قراره authentication الزامی باشه واسه پرداخت یا خیر ولی من روی دو حالت بدون ورود و با ورود پیاده سازی کردم کل روند رو (اولیوت با یوزر احراز شده هستش) 
+- واسه auth از لاراول passport استفاده شده و روت های auth گذاشته شده   
+- همه چی کامنت گذاری شده و فانکشن ها از اسمشون معلومه چیکار میکنن 
+- همممم در آخر هم که بگم همه ی کلاس ها بجر کلا های کوئری بیلدر طی کار برروی پروژه نوشته شده و کپی نشده
+- از هیچ پکیج جانبی جز laravel passport استفاده نشده 
+- نسخه ی لاراول هم 7.x هستش پس نیاز به php 7.4 هست و کامپوز منطبق با اون ورژن php 
+- بصورت پیش فرض کلاینت توکن و Bareer Token  برای احراز در جی سان موجود است 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# روند ها 
+- لیست محصولات گرفته میشود از api و محصول انتخاب میگردد 
+- پس از انتخاب محصول آیدی محصول برای افزودت به سبد به api فرستاده میشود 
+- با توجه به احراز بودن یا نبودن کاربر به سبد کاربر یا بازدید کننده اضافه خواهد شد در صورتی که دوبار از یک محصول به سبد اضافه شود اولی باقی میماند و در تعداد سفارش تغغیری رخ نمیدهد 
+- در صورتی که بخواهید از یک محصول بیش از یک عدد سفارش دهید باید مقدار count به سمت api ارسال شود بصورت پیش فرض این مقدار برابر با 1 می باشد.
+- آدرس cart-items جهت نمایش موجودی سبذ فعلی کاربر یا بازدید کننده است 
+- ساخت فاکتور : در صورتی که به این آدرس درخواست زده شود موجودیت های درون سبد چک میشود و در صورت عدم تغییر موجودیت ها فاکتور ساخته میشود 
+- شما می توانید لیست فاکتور های هر کاربر یا بازدید گننده را توسط factor list دریافت کنید.
+- برای پرداخت از factor pay استفاده شود سیستم پرداختی موجود نبوده و بصورت پیش فرض در صورتی که فاکتور در استاتوس منتظر پرداخت باشد پرداخت می شود در غیر این صورت با اررور مواجه خواهید شد
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+</div>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<div> 
 
-## Laravel Sponsors
+#Classes
+#API Classes
+- WebserviceResponse : this is a response Class to Manage all response statuses and messages. in this class we defined response statuses and messages as a constant variable to make code readable and easier and scalable
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+#Helper Classes
+- HelperHash : This class responsibility is that to make hash from array of data with this methodology we can decrypt hash and mine the hash data (it used in factor to generate follow up code for each factor)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+#Managers
+- CartManager : it handled all user/client cart processes in cart manager such as add product to cart or delete or edit cart
 
-## Contributing
+- FactorManager : it handled all user/client factor processes in factor manager class such as make factor or factor contents
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- RedisManager : it helps us to manage all keys of our redis with defining keys as constant variable in RedisManager (by default its not available you should turn it on in database configs)
 
-## Code of Conduct
+#QueryBuilders (this is my favorite part)
+General Description
+These Classes were write by my self many years ago and i didnt change it alot but the responsibity of these classes are making queries and make query writing easy-peasy for php programmers its very important to me that u read these class and how they work 
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#HTTP CONTROLLERS
+-AuthController : Auth Methods such as login/register Are in this class.
+-CartController : All Cart methods are in this class.
+-FactorController : All Factor methods are in this class.
+-ProductController : All Product methods are in this class.
+-UserController : All User methods are in this class.
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#Middleware (middlewares that I wrote)
+-ClientTokenMiddleware : check client token and keep away clients without client-token
 
-## License
+#Models
+-Cart : Basket or Cart of user params are mentioned as @params in the model 
+-Client : if user not authenticated we know it as client and we store clients have their cart and etc in out database 
+-Factor : Factor of user with price and client_id or user_id. other params mentioned as @params in the model
+-FactorContent : its a Model to save products that the user want to buy or bought them (we replicate product in this model because the product can change after a while or disappear)
+-Product : Product Model Nothing More
+-User : User model Nothing More
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+</div>
+
+
