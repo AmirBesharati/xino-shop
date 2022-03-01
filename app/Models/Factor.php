@@ -25,9 +25,12 @@ class Factor extends Model
     const _STATUS_FACTOR_PAY_FAILED_LABEL = 'factor pay failed';
 
 
+    protected $hidden = ['status' , 'client_id' , 'user_id' , 'updated_at' , 'id'];
+
+
     public function factor_contents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(FactorContent::class , 'id' , 'factor_id');
+        return $this->hasMany(FactorContent::class , 'factor_id' , 'id');
     }
 
 

@@ -71,6 +71,8 @@ class FactorManager
         $factor->factor_contents()->saveMany($factor_contents);
         $factor->calculate_prices();
 
+        $factor->load(['factor_contents']);
+
         $factor_res->status = 'success';
         $factor_res->body = $factor;
         return $factor_res;

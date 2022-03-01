@@ -13,5 +13,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class FactorContent extends Model
 {
-    //
+    protected $hidden = ['id' , 'factor_id' , 'product_id' , 'created_at' , 'updated_at'];
 }
