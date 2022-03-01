@@ -81,6 +81,7 @@ class FactorController extends Controller
 
         $factor_follow_up_code = $request->get('code');
 
+        //make factor query
         $factor_query_builder = new FactorQueryBuilder();
         $factor_query_builder->setStatus(Factor::_STATUS_FACTOR_CREATED_READY_TO_PAY);
         $factor_query_builder->setFollowUpCode($factor_follow_up_code);
@@ -92,11 +93,14 @@ class FactorController extends Controller
         /** @var Factor $factor */
         $factor = $factor_query_builder->get_query()->first();
 
+        //return error if factor null
         if($factor == null){
             $response = new WebserviceResponse(WebserviceResponse::_RESULT_ERROR , WebserviceResponse::_ERROR_FACTOR_NOT_EXIST);
             return response()->json($response);
         }
 
+
+        //check is factor ready to pay?
         if(!$factor->canPay()){
             $response = new WebserviceResponse(WebserviceResponse::_RESULT_ERROR , WebserviceResponse::_ERROR_FACTOR_UNABLE_TO_PAY);
             return response()->json($response);
