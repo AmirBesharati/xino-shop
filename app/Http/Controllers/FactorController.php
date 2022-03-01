@@ -114,7 +114,4 @@ class FactorController extends Controller
 
 
     }
-
-
-
 }
