@@ -24,14 +24,15 @@ class FactorController extends Controller
                 CartManager::emptyClientCart($client);
 
                 $response = new WebserviceResponse(WebserviceResponse::_RESULT_OK, $success_messages);
-                $response->content['factor'] = $factor;
+                $response->content['factor'] = $factor->body;
                 return $response;
 
             }, function ($error_messages) {
                 return new WebserviceResponse(WebserviceResponse::_RESULT_ERROR, $error_messages);
             });
+
         } else {
-            FactorManager::makeFactorByUser($user, function ($success_messages, $factor) use ($user) {
+            $response =FactorManager::makeFactorByUser($user, function ($success_messages, $factor) use ($user) {
 
                 CartManager::emptyUserCart($user);
 
@@ -43,7 +44,6 @@ class FactorController extends Controller
                 return new WebserviceResponse(WebserviceResponse::_RESULT_OK, $error_messages);
             });
         }
-
         return response()->json($response);
 
     }
@@ -63,7 +63,7 @@ class FactorController extends Controller
         if($user == null){
             $factor_query_builder->setClientId($client->id);
         }else{
-            $factor_query_builder->setUserId($client->id);
+            $factor_query_builder->setUserId($user->id);
         }
         $factor_query_builder->setLoadFactorContents(true);
         $factors = $factor_query_builder->get_result();
