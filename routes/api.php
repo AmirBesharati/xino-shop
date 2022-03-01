@@ -43,9 +43,8 @@ Route::post('/add-to-cart' , [CartController::class , 'add_to_cart']);
 
 Route::prefix('factor')->group(function (){
     Route::post('/make' , [FactorController::class , 'make_factor']);
-    Route::post('/pay' , [FactorController::class , 'pay_factor']);
     Route::post('/list' , [FactorController::class , 'factor_list']);
-
+    Route::post('/pay' , [FactorController::class , 'pay_factor']);
 });
 
 

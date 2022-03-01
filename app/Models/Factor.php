@@ -32,7 +32,7 @@ class Factor extends Model
     ];
 
 
-    protected $hidden = ['status' , 'client_id' , 'user_id' , 'updated_at' , 'id'];
+    protected $hidden = ['status' , 'is_deleted' , 'client_id' , 'user_id' , 'updated_at' , 'id'];
 
     protected $sh = ['created_at' , 'updated_at'];
 
