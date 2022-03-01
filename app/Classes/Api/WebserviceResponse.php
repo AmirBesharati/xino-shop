@@ -21,6 +21,7 @@ class WebserviceResponse
     const _ERROR_PRODUCT_NOT_EXISTS = 'product not exists';
     const _ERROR_CART_ADD_ISSUE = 'There are some problem during add to cart';
     const _ERROR_FACTOR_NOT_EXIST = 'factor not exist';
+    const _ERROR_FACTOR_UNABLE_TO_PAY = 'cant pay this factor';
 
 
     var $content = [];

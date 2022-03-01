@@ -97,10 +97,24 @@ class FactorController extends Controller
         }
 
         if(!$factor->canPay()){
-
+            $response = new WebserviceResponse(WebserviceResponse::_RESULT_ERROR , WebserviceResponse::_ERROR_FACTOR_UNABLE_TO_PAY);
+            return response()->json($response);
         }
 
         //do transaction
 
+
+        //imaginal factor payed this section is callback of payment
+        $factor->status = Factor::_STATUS_FACTOR_PAY_COMPLETED_PENDING_FOR_ADMIN_APPROVE;
+        $factor->save();
+
+        $response = new WebserviceResponse(WebserviceResponse::_RESULT_OK);
+        $response->content['factor'] = $factor;
+        return response()->json($request);
+
+
     }
+
+
+
 }
