@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/test' , function (){
+Route::get('/test' , function (Request $request){
+    dd($request->clientToken , session('client-token'));
+
     \App\Models\User::query()->create([
        'name' => '' ,
        'email' => 'amirbesharati59@gmail.com' ,
