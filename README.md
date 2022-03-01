@@ -19,9 +19,12 @@
 
 #تست
 #Login
-user : amirbesharati59@gmail.com
-pass : passpass
-id : 51
+- user : amirbesharati59@gmail.com
+- pass : passpass
+- id : 51
+
+#postman 
+- /Xino.postman_collection.json
 
 
 # روند ها 
