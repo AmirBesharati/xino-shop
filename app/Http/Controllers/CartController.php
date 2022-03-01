@@ -43,7 +43,7 @@ class CartController extends Controller
 
         //add product to cart based on user or token
         if($user == null){
-            $is_added_to_cart = CartManager::addProductToCartByToken($product_id , $token , $count);
+            $is_added_to_cart = CartManager::addProductToCartByClient($product_id , $token , $count);
         }else{
             $is_added_to_cart = CartManager::addProductToCartByUser($product_id , $user , $count);
         }
