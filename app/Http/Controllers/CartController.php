@@ -15,7 +15,7 @@ class CartController extends Controller
         $user = $request->user('api');
 
 
-        //check product exists
+        $count = $request->get('count');
         $product_id = $request->get('product_id');
 //        $product_code = $request->get('code');
 
@@ -43,9 +43,10 @@ class CartController extends Controller
 
         //add product to cart based on user or token
         if($user == null){
-            $is_added_to_cart = CartManager::addProductToCartByToken($product_id , $token);
+            $is_added_to_cart = CartManager::addProductToCartByToken($product_id , $token , $count);
+        }else{
+            $is_added_to_cart = CartManager::addProductToCartByUser($product_id , $user , $count);
         }
-        $is_added_to_cart = CartManager::addProductToCartByUser($product_id , $user);
 
 
         //return response based on is_added_to_cart boolean
