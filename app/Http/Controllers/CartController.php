@@ -12,7 +12,7 @@ class CartController extends Controller
     public function add_to_cart(Request $request)
     {
         //check user logged in or not
-        $user = $request->user('passport');
+        $user = $request->user('api');
 
 
         //check product exists
@@ -24,8 +24,14 @@ class CartController extends Controller
         $product = Product::find($product_id);
 //        $product = Product::findByCode($product_code);
 
+        //check product
+        if($product == null){
+            $response = new WebserviceResponse(WebserviceResponse::_RESULT_ERROR , WebserviceResponse::_ERROR_PRODUCT_NOT_EXISTS);
+            return response()->json($response);
+        }
+
         //check product validity
-        if(!$product->invalid()){
+        if($product->invalid()){
             $response = new WebserviceResponse(WebserviceResponse::_RESULT_ERROR , $product->invalidMessage());
             return response()->json($response);
         }
@@ -44,9 +50,10 @@ class CartController extends Controller
 
         //return response based on is_added_to_cart boolean
         if(!$is_added_to_cart){
-            $response = new WebserviceResponse(WebserviceResponse::_RESULT_ERROR);
+            $response = new WebserviceResponse(WebserviceResponse::_RESULT_ERROR , WebserviceResponse::_ERROR_CART_ADD_ISSUE);
+        }else{
+            $response = new WebserviceResponse(WebserviceResponse::_RESULT_OK);
         }
-        $response = new WebserviceResponse(WebserviceResponse::_RESULT_OK);
         return  response()->json($response);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Classes\Api\WebserviceResponse;
+use App\Models\Client;
 use Closure;
 use Illuminate\Support\Facades\Hash;
 use phpseclib\Crypt\Random;
@@ -25,6 +26,13 @@ class ClientTokenMiddleware
             $response->content['client_token'] = $client_token;
             return response()->json($response);
         }
+
+        $client = Client::findOrCreateClient($token);
+
+        $request->client = $client;
+
+
+
         return $next($request);
     }
 }

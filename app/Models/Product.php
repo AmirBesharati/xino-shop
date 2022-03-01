@@ -28,10 +28,10 @@ class Product extends Model
      */
     public function invalid(): bool
     {
-        if($this->is_deleted == 0) return false;
-        if($this->quantity == 0) return false;
-        if($this->status == 0) return false;
-        return true;
+        if($this->is_deleted == 1) return true;
+        if($this->quantity == 0) return true;
+//        if($this->status == 0) return true;
+        return false;
     }
 
 
@@ -40,9 +40,9 @@ class Product extends Model
      */
     public function invalidMessage(): string
     {
-        if($this->is_deleted == 0) return 'product not exists.';
+        if($this->is_deleted == 1) return 'product not exists.';
         if($this->quantity == 0) return 'product quantity is finished.';
-        if($this->status == 0) return 'product not exists.';
+//        if($this->status == 0) return 'product not exists.';
         return '';
     }
 
