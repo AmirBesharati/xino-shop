@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed full_price
  * @property mixed full_discount_price
  * @property mixed factor_contents
+ * @property int|mixed status
  */
 class Factor extends Model
 {

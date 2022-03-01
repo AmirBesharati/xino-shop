@@ -45,6 +45,7 @@ class FactorManager
 
         //make factor
         $factor = new Factor();
+        $factor->status = Factor::_STATUS_FACTOR_CREATED_READY_TO_PAY;
         if($user_id == null){
             $factor->client_id = $client_id;
         }else{
